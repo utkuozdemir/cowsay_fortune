@@ -1,0 +1,16 @@
+#!/bin/bash
+
+shopt -s nullglob
+cow_files=(/usr/share/cowsay/cows/*)
+cow_names=()
+for i in "${cow_files[@]}"
+do
+  cow_names+=(${i##*/%.*})
+done
+
+cow=${cow_names[$RANDOM % ${#cow_names[@]}]}
+
+commands=("/usr/games/cowsay" "/usr/games/cowthink")
+command=${commands[$RANDOM % ${#commands[@]}]}
+
+/usr/games/fortune | $command -f $cow
